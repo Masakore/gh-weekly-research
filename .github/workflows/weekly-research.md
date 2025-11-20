@@ -6,8 +6,8 @@ description: |
 
 on:
   schedule:
-    # Every week, 9AM UTC, Monday
-    - cron: "0 9 * * 1"
+    # Every day, 10PM UTC
+    - cron: "0 22 * * *"
   workflow_dispatch:
 
   stop-after: +1mo # workflow will no longer trigger after 1 month. Remove this and recompile to run indefinitely
