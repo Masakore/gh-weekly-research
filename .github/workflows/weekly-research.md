@@ -1,10 +1,8 @@
 ---
 description: |
-  This workflow performs research to  provides industry insights and competitive analysis.
-  Reviews recent code, issues, PRs, industry news, and trends to create comprehensive
-  research reports. Covers related products, research papers, market opportunities,
-  business analysis, and new ideas. Creates GitHub discussions with findings to inform
-  strategic decision-making.
+  This workflow monitors the sites listed below, summarizes the most important security
+  news and updates, and publishes the findings in a new GitHub discussion for
+  stakeholders to review.
 
 on:
   schedule:
@@ -16,7 +14,10 @@ on:
 
 permissions: read-all
 
-network: defaults
+network: 
+  allowed:
+    - defaults
+    - "*.tavily.com"
 
 safe-outputs:
   create-discussion:
@@ -29,6 +30,14 @@ tools:
   web-fetch:
   web-search:
 
+mcp-servers:
+  tavily:
+    command: npx
+    args: ["-y", "@tavily/mcp-server"]
+    env:
+      TAVILY_API_KEY: "${{ secrets.TAVILY_API_KEY }}"
+    allowed: ["search", "search_news"]
+
 timeout-minutes: 15
 
 source: githubnext/agentics/workflows/weekly-research.md@d3422bf940923ef1d43db5559652b8e1e71869f3
@@ -38,20 +47,16 @@ source: githubnext/agentics/workflows/weekly-research.md@d3422bf940923ef1d43db55
 
 ## Job Description
 
-Do a deep research investigation in ${{ github.repository }} repository, and the related industry in general.
+Do a research investigation in the following websites and summarize the latest security news and updates past one week.
 
-- Read selections of the latest code, issues and PRs for this repo.
-- Read latest trends and news from the software industry news source on the Web.
+- https://thehackernews.com/
+- https://www.darkreading.com/
+- https://www.scworld.com/
+
 
 Create a new GitHub discussion with title starting with "${{ github.workflow }}" containing a markdown report with
 
-- Interesting news about the area related to this software project.
-- Related products and competitive analysis
-- Related research papers
-- New ideas
-- Market opportunities
-- Business analysis
-- Enjoyable anecdotes
+- A summary of the most important security news and updates found during the research
 
 Only a new discussion should be created, no existing discussions should be adjusted.
 
