@@ -18,6 +18,7 @@ network:
   allowed:
     - defaults
     - "*.tavily.com"
+    - "api.individual.githubcopilot.com"
 
 safe-outputs:
   create-discussion:
