@@ -19,6 +19,9 @@ network:
     - defaults
     - "*.tavily.com"
     - "api.individual.githubcopilot.com"
+    - "thehackernews.com"
+    - "www.darkreading.com"
+    - "www.scworld.com"
 
 safe-outputs:
   create-discussion:
